@@ -1,0 +1,17 @@
+{
+  "name": "ai-chat-frontend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI support chat widget frontend",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "svelte": "^4.2.8",
+    "vite": "^5.0.8",
+    "typescript": "^5.3.3"
+  }
+}
