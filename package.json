@@ -1,0 +1,12 @@
+{
+  "name": "ai-chat-agent",
+  "version": "1.0.0",
+  "description": "AI support chat agent with Node.js and Svelte",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev": "echo 'Open two terminals: 1) cd backend && npm run dev  2) cd frontend && npm run dev'"
+  },
+  "keywords": ["ai", "chat", "support", "llm"],
+  "author": "",
+  "license": "MIT"
+}
