@@ -1,18 +1,18 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
-  const API_URL = import.meta.env.VITE.API.URL || 'http://localhost:3000';
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   let messages = [];
-  let inputMessage = '';
+  let inputMessage = "";
   let sessionId = null;
   let isLoading = false;
   let isTyping = false;
-  let errorMessage = '';
+  let errorMessage = "";
   let messagesContainer;
 
   onMount(() => {
-    const savedSessionId = localStorage.getItem('chatSessionId');
+    const savedSessionId = localStorage.getItem("chatSessionId");
     if (savedSessionId) {
       sessionId = savedSessionId;
       loadHistory();
@@ -28,7 +28,7 @@
         scrollToBottom();
       }
     } catch (error) {
-      console.error('Failed to load history:', error);
+      console.error("Failed to load history:", error);
     }
   }
 
@@ -36,26 +36,26 @@
     const trimmedMessage = inputMessage.trim();
 
     if (!trimmedMessage) {
-      errorMessage = 'Please enter a message';
+      errorMessage = "Please enter a message";
       return;
     }
 
     if (trimmedMessage.length > 5000) {
-      errorMessage = 'Message is too long (max 5000 characters)';
+      errorMessage = "Message is too long (max 5000 characters)";
       return;
     }
 
-    errorMessage = '';
+    errorMessage = "";
     isLoading = true;
 
     const userMessage = {
-      sender: 'user',
+      sender: "user",
       text: trimmedMessage,
       created_at: new Date().toISOString(),
     };
 
     messages = [...messages, userMessage];
-    inputMessage = '';
+    inputMessage = "";
     scrollToBottom();
 
     isTyping = true;
@@ -67,9 +67,9 @@
       }
 
       const response = await fetch(`${API_URL}/chat/message`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
@@ -77,16 +77,16 @@
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error(data.error || "Failed to send message");
       }
 
       if (!sessionId) {
         sessionId = data.sessionId;
-        localStorage.setItem('chatSessionId', sessionId);
+        localStorage.setItem("chatSessionId", sessionId);
       }
 
       const aiMessage = {
-        sender: 'ai',
+        sender: "ai",
         text: data.reply,
         created_at: new Date().toISOString(),
       };
@@ -94,8 +94,9 @@
       messages = [...messages, aiMessage];
       scrollToBottom();
     } catch (error) {
-      errorMessage = error.message || 'Failed to send message. Please try again.';
-      console.error('Error sending message:', error);
+      errorMessage =
+        error.message || "Failed to send message. Please try again.";
+      console.error("Error sending message:", error);
     } finally {
       isLoading = false;
       isTyping = false;
@@ -103,7 +104,7 @@
   }
 
   function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -119,17 +120,17 @@
 
   function formatTime(timestamp) {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit'
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   }
 
   function startNewChat() {
     messages = [];
     sessionId = null;
-    localStorage.removeItem('chatSessionId');
-    errorMessage = '';
+    localStorage.removeItem("chatSessionId");
+    errorMessage = "";
   }
 </script>
 
@@ -193,7 +194,7 @@
       disabled={isLoading || !inputMessage.trim()}
       class="send-btn"
     >
-      {isLoading ? '...' : 'Send'}
+      {isLoading ? "..." : "Send"}
     </button>
   </div>
 </div>
@@ -239,7 +240,7 @@
   }
 
   .status-indicator::before {
-    content: '';
+    content: "";
     width: 8px;
     height: 8px;
     background: #48bb78;
@@ -368,7 +369,9 @@
   }
 
   @keyframes typing {
-    0%, 60%, 100% {
+    0%,
+    60%,
+    100% {
       transform: translateY(0);
     }
     30% {
