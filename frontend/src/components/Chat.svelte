@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
-  const API_URL = 'http://localhost:3000';
+  const API_URL = import.meta.env.VITE.API.URL || 'http://localhost:3000';
 
   let messages = [];
   let inputMessage = '';
