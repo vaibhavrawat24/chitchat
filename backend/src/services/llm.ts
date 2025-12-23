@@ -107,7 +107,7 @@ export class LLMService {
     }
 
     const modelName = process.env.LLM_MODEL || 'microsoft/DialoGPT-medium';
-    const apiUrl = `https://api-inference.huggingface.co/models/${modelName}`;
+    const apiUrl = `https://router.huggingface.co/models/${modelName}`;
 
     let prompt = SYSTEM_PROMPT + '\n\n';
 
